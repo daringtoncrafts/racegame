@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#090d16">
+<title>Turbo GP — Multiplayer Tap Race</title>
+<meta name="description" content="Real-time multiplayer tap racing. Host a race on a big screen and join from your phone.">
+<link rel="stylesheet" href="./styles.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script type="module" src="./game.js"></script>
+</head>
+<body>
+
+<main id="lobby" class="screen" hidden>
+  <div class="lobby-card">
+    <p class="eyebrow">Multiplayer tap race</p>
+    <h1 class="logo">TURBO GP</h1>
+    <p class="muted">Host on a big screen. Everyone joins from their phone and taps to win.</p>
+
+    <button id="host-btn" class="btn btn-primary btn-lg" type="button">Host a race</button>
+
+    <div class="divider"><span>or join one</span></div>
+
+    <form id="join-form" class="join-form">
+      <label for="join-code" class="sr-only">Room code</label>
+      <input id="join-code" class="input" placeholder="ROOM CODE" maxlength="6" autocomplete="off" autocapitalize="characters" required>
+      <button class="btn btn-secondary" type="submit">Join</button>
+    </form>
+  </div>
+</main>
+
+<main id="host" class="screen" hidden>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Host display</p>
+      <p class="logo-sm">TURBO GP</p>
+    </div>
+    <div class="topbar-center">
+      <p id="host-status" class="status">Waiting for players</p>
+      <p id="host-timer" class="timer">0:30</p>
+    </div>
+    <button id="start-btn" class="btn btn-primary" type="button" disabled>Start race</button>
+  </header>
+
+  <div class="host-body">
+    <section class="track-wrap" aria-label="Race track">
+      <canvas id="host-canvas"></canvas>
+    </section>
+
+    <aside class="join-panel">
+      <div id="qr" class="qr" aria-label="QR code to join this room"></div>
+      <p class="eyebrow">Room code</p>
+      <p id="host-room" class="room-code">-----</p>
+      <p id="host-join-url" class="join-url muted"></p>
+      <ul id="lane-list" class="lane-list" aria-label="Lanes"></ul>
+      <p id="host-waiting" class="muted small"></p>
+      <p id="host-conn" class="conn small">Connecting…</p>
+    </aside>
+  </div>
+</main>
+
+<main id="player" class="screen" hidden>
+  <form id="name-form" class="lobby-card name-card">
+    <p class="eyebrow">Joining room <span id="name-room"></span></p>
+    <h1 class="logo">TURBO GP</h1>
+    <label for="name-input" class="label">Your racer name</label>
+    <input id="name-input" class="input" maxlength="14" autocomplete="nickname" required>
+    <button class="btn btn-primary btn-lg" type="submit">Join race</button>
+  </form>
+
+  <div id="controller" class="controller" hidden>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Room <span id="player-room"></span></p>
+        <p id="player-name" class="logo-sm"></p>
+      </div>
+      <div class="topbar-center">
+        <p id="player-status" class="status">Connecting…</p>
+        <p id="player-timer" class="timer">0:30</p>
+      </div>
+    </header>
+    <section class="track-wrap track-small" aria-label="Race track">
+      <canvas id="player-canvas"></canvas>
+    </section>
+    <button id="tap-btn" class="tap-btn" type="button" disabled>
+      <span id="tap-label">TAP!</span>
+      <span id="tap-count" class="tap-count">0 taps</span>
+    </button>
+  </div>
+</main>
+
+</body>
+</html>
